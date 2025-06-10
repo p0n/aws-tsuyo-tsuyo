@@ -2,7 +2,7 @@
 
 AWSのアーキテクチャアイコンを使用したぷよぷよ風のシンプルなゲームです。
 
-[!['altテキスト']('./screenshot.png')]('https://youtube.com/shorts/uycxqQgae3w')
+[![](./screenshot.png)](https://youtube.com/shorts/uycxqQgae3w)
 
 ## 特徴
 
