@@ -1,17 +1,13 @@
 [project]
-name = "aws-puyo-game"
+name = "aws-tsuyo-tsuyo"
 version = "0.1.0"
 description = "AWSのアーキテクチャアイコンを使用したぷよぷよ風ゲーム"
 authors = [
-    {name = "AWS Game Developer"}
+    {name = "p0n"}
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.13"
 dependencies = [
     "pygame>=2.5.0",
     "requests>=2.31.0",
     "pillow>=10.0.0",
 ]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

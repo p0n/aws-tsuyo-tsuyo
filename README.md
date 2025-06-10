@@ -2,6 +2,8 @@
 
 AWSのアーキテクチャアイコンを使用したぷよぷよ風のシンプルなゲームです。
 
+[!['altテキスト']('./screenshot.png')]('https://youtube.com/shorts/uycxqQgae3w')
+
 ## 特徴
 
 - AWSのアーキテクチャアイコンをぷよぷよの代わりに使用
@@ -18,17 +20,13 @@ AWSのアーキテクチャアイコンを使用したぷよぷよ風のシン�
 このプロジェクトはuvを使用して依存関係を管理しています。
 
 ```bash
-# 仮想環境を初期化
-uv init
-
-# 依存関係をインストール
-uv pip install pygame requests pillow
+uv sync
 ```
 
 ## 遊び方
 
 ```bash
-python main.py
+uv run main.py
 ```
 
 ### コントロール
@@ -62,4 +60,6 @@ python main.py
   
 ## その他
 
+- このアプリはAmazon Q Developerを使用して作成したものです
+- `download_font.py`や`download_icons.py`は記録用に残していますが残骸です
 - BGMは[Udio](https://www.udio.com/)で作成しました
