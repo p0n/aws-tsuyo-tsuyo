@@ -59,3 +59,7 @@ python main.py
 - `update_icons.py`: AWSアイコンを更新するスクリプト
 - `main.py`: ゲームのメインコード
 - `assets/`: アイコン、背景画像、BGMなどのアセットを格納
+  
+## その他
+
+- BGMは[Udio](https://www.udio.com/)で作成しました
