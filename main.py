@@ -54,6 +54,14 @@ class DifficultySelector:
         self.selected = 0
         self.difficulties = list(DIFFICULTY_LEVELS.keys())
         
+        # BGMが再生されていない場合は開始
+        if not pygame.mixer.music.get_busy():
+            try:
+                pygame.mixer.music.load('assets/bgm.mp3')
+                pygame.mixer.music.play(-1)  # -1は無限ループ
+            except:
+                print("BGMの読み込みに失敗しました")
+        
         # 背景画像の読み込み
         try:
             self.bg_image = pygame.image.load('assets/bg.jpg')
@@ -139,6 +147,7 @@ class PuyoGame:
     def __init__(self, difficulty="初心者", screen=None):
         if screen is None:
             pygame.init()
+            pygame.mixer.init()  # サウンドミキサーを初期化
             self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
             pygame.display.set_caption(GAME_TITLE_EN)
         else:
@@ -146,6 +155,15 @@ class PuyoGame:
             
         self.clock = pygame.time.Clock()
         self.font = get_font(36)
+        
+        # BGMの読み込みと再生
+        try:
+            pygame.mixer.music.load('assets/bgm.mp3')
+            pygame.mixer.music.play(-1)  # -1は無限ループ
+            self.sound_on = True
+        except:
+            print("BGMの読み込みに失敗しました")
+            self.sound_on = False
         
         # 背景画像の読み込み
         try:
@@ -296,6 +314,12 @@ class PuyoGame:
         if self.chain_count > 0:
             chain_text = self.font.render(f"{self.chain_count}連鎖!", True, (255, 0, 0))
             self.screen.blit(chain_text, (GRID_WIDTH * CELL_SIZE + 20, 260))
+        
+        # サウンド状態表示
+        sound_text = self.font.render(f"サウンド: {'ON' if self.sound_on else 'OFF'}", True, BLACK)
+        self.screen.blit(sound_text, (GRID_WIDTH * CELL_SIZE + 20, 300))
+        sound_hint = self.font.render("Sキーで切替", True, GRAY)
+        self.screen.blit(sound_hint, (GRID_WIDTH * CELL_SIZE + 20, 330))
         
         # ポーズ表示
         if self.paused:
@@ -559,6 +583,14 @@ class PuyoGame:
         if not self.game_over:
             self.paused = not self.paused
     
+    def toggle_sound(self):
+        """サウンドのオン/オフを切り替え"""
+        self.sound_on = not self.sound_on
+        if self.sound_on:
+            pygame.mixer.music.unpause()
+        else:
+            pygame.mixer.music.pause()
+    
     def run(self):
         """ゲームループ"""
         running = True
@@ -578,6 +610,8 @@ class PuyoGame:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_p:
                         self.toggle_pause()
+                    elif event.key == pygame.K_s:
+                        self.toggle_sound()
                     elif not self.paused:  # ポーズ中は他のキー入力を無視
                         if event.key == pygame.K_LEFT:
                             self.move_puyo(-1, 0)
@@ -613,6 +647,7 @@ class PuyoGame:
 
 def main():
     pygame.init()
+    pygame.mixer.init()  # サウンドミキサーを初期化
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(GAME_TITLE_EN)
     
